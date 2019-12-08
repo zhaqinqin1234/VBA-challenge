@@ -68,6 +68,32 @@ Next i
 Next ws
 End Sub
 
+Sub Summary():
+Dim ws As Worksheet
+Dim starting_ws As Worksheet
+Set starting_ws = ActiveSheet
 
-
-
+For Each ws In ThisWorkbook.Worksheets
+ws.Activate
+    Dim rng As Range
+    Dim Maximum As Double
+    Dim Minimum As Double
+    Dim totalMax As Double
+    Set rng = ws.Range("K:K")
+    Set rng1 = ws.Range("L:L")
+    'Worksheet function MAX returns the largest value in a range
+    Maximum = Application.WorksheetFunction.Max(rng)
+    Minimum = Application.WorksheetFunction.Min(rng)
+    totalMax = Application.WorksheetFunction.Max(rng1)
+ws.Cells(1,16).Value = "Ticker"
+ws.Cells(1,17).Value = "Value"
+ws.Cells(2, 17).Value = Maximum
+ws.Cells(2,17).NumberFormat = "0.00%"
+ws.Cells(2, 15).Value = "Greatest % Increase"
+ws.Cells(3, 15).Value = "Greatest % Decrease"
+ws.Cells(3, 17).Value = Minimum
+ws.Cells(3,17).NumberFormat = "0.00%"
+ws.Cells(4, 15).Value = "Greatest Total Volume"
+ws.Cells(4, 17).Value = totalMax
+Next ws
+End Sub
