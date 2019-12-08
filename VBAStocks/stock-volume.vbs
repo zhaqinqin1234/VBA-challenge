@@ -1,3 +1,4 @@
+'Run suborder: totalVolume ---conditionalFormatting---Summary
 Sub totaVolume():
     Dim ws As Worksheet
     Dim starting_ws As Worksheet
@@ -79,6 +80,9 @@ ws.Activate
     Dim Maximum As Double
     Dim Minimum As Double
     Dim totalMax As Double
+    Dim SummaryTicker1 As String
+    Dim SummaryTicker2 As String
+    Dim SummaryTicker3 As String
     Set rng = ws.Range("K:K")
     Set rng1 = ws.Range("L:L")
     'Worksheet function MAX returns the largest value in a range
@@ -90,10 +94,28 @@ ws.Cells(1,17).Value = "Value"
 ws.Cells(2, 17).Value = Maximum
 ws.Cells(2,17).NumberFormat = "0.00%"
 ws.Cells(2, 15).Value = "Greatest % Increase"
+    For i = 2 To ws.Cells(Rows.Count, 1).End(xlUp).Row
+        If ws.Cells(i, 11).Value = Maximum Then
+        SummaryTicker1 = ws.Cells(i,9).Value 
+        ws.Cells(2,16).Value =SummaryTicker1
+        End If
+    Next i
 ws.Cells(3, 15).Value = "Greatest % Decrease"
 ws.Cells(3, 17).Value = Minimum
 ws.Cells(3,17).NumberFormat = "0.00%"
+    For i = 2 To ws.Cells(Rows.Count, 1).End(xlUp).Row
+        If ws.Cells(i, 11).Value = Minimum Then
+        SummaryTicker2 = ws.Cells(i,9).Value 
+        ws.Cells(3,16).Value =SummaryTicker2
+        End If
+    Next i
 ws.Cells(4, 15).Value = "Greatest Total Volume"
 ws.Cells(4, 17).Value = totalMax
+    For i = 2 To ws.Cells(Rows.Count, 1).End(xlUp).Row
+        If ws.Cells(i, 12).Value = totalMax Then
+        SummaryTicker3 = ws.Cells(i,9).Value 
+        ws.Cells(4,16).Value =SummaryTicker3
+        End If
+    Next i
 Next ws
 End Sub
